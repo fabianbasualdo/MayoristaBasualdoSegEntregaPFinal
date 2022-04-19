@@ -1,0 +1,192 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+
+/*********************aplico FLEXBOX a contactos***************************/
+.contactosPadre {
+    grid-area: contactospadre;/*contactospadre esta declarado en grid-template-areas*/
+    display: flex;
+    flex-direction: column;/*su direccion sera como columna y no como row*/
+    flex-wrap: wrap;/* cuando se queda sin espacio en el contenedor genera una nueva columna*/
+    justify-content: space-evenly;/*asigno mismo espacio entre los elementos*/
+    text-align: center;
+}
+
+.contactoshijos {
+    border: medium solid #999;
+    /* width: 100%;*/
+    /*height: 30%;*/
+    background-color: #666;
+}
+
+/********************************************************************************/
+
+/*********alineando con flex los horarios del footer**********************/
+.horario {
+    display: flex;
+    flex-direction: row;/*alinea los elementos en fila*/
+    flex-wrap: wrap;
+    /*si se termina la caja del padre, pasa a la linea de abajo del padre*/
+    /*justify-content: flex-end;*/
+    /*todo el contenido del padre lo lleva al final*/
+    justify-content: space-evenly;
+}
+
+
+
+/*********quitando los puntos a los menues y alineando con flex************/
+
+.menufoot {
+
+    display: flex;
+    flex-direction: row; 
+    flex-wrap: wrap;/*rompe fila al terminar el espacio*/
+    justify-content: space-evenly; /*mismo espacio entre elementos incluyendo en espacio de los bordes*/
+}
+
+.menufooterhijo ul {
+
+    list-style: none; 
+}
+
+.menufooterhijo li a {
+    text-decoration: none;
+}
+
+/******************************************************************************/
+
+/***********************transformaciones al index************************/
+
+
+.sector_productos {
+
+    position: relative;/*el hijo absolute solo puede saltarse el flujo hasta el padre porque dicho padre tiene relative*/
+    cursor: pointer;/*manito al pasarle el mouse*/
+    overflow: hidden;
+}
+
+
+
+/*los pseudoelemento por default son inline, se posicionan en linea a sector_productos*/
+/*before es un pseudoelemento, es decir, es un falso elemento*/
+
+
+
+.sector_productos::before {
+    /*creo un pseudoelemento vacio, exite pero no se ve*/
+    content: "";/*todo before requiere un content*/
+    transition: transform .2s;/*tiempo que dura la transformacion*/
+    transform: scaleY(0);/*aplico la transformacion*/
+}
+
+
+/*los pseudoelementos se consideran hijos del contenedor sector_productos 
+es por eso que puedo utilizar flexbox, para centrar a "content" dentro de  sector_productos*/
+
+
+
+.sector_productos:hover::before {
+
+    /*al pasar el mouse le creo un texto y lo centro*/
+    content: "Nuestras ofertas...";
+    color: #fff;/*color de la letra*/
+
+
+
+    /*APLICO FLEXBOX porque el pseudoelemento se colocoa por default inline, con respecto al padre*/
+    /*centro al pseudoelemento dentro del padre sector_productos*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+
+
+    font-size: 1.5rem;
+    position: absolute;/*absolute para que se mantenga dentro de su padre relative*/
+    background-color: #5b40f3a6;/*este es el color de fondo que tendra mi pseudoelemento*/
+
+
+    /*con esto posiciono al pseudoelemento dentro del padre sector_productos*/
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+
+    transform: scaleY(1);/*aplico la transformacion*/
+}
+
+/***************fin de las transformaciones al index*********************/
+
+
+
+
+/**************aplicando transicion al boton de sucursales**************/
+.btn-primary {
+    transition: .3s ease all;
+    position: relative;
+    overflow: hidden;
+}
+
+
+.btn-primary.btn-1::after {
+
+    content: "";/*todo pseudoelemento debe tener un content*/
+    width: 100%;
+    height: 100%;
+    background-color: rgb(160, 160, 47);
+    position: absolute;
+    z-index: 1;/*al pseudoelemento after, lo coloco por debajo del texto, si no hago esto me tapa el texto*/
+    top: -45px;/*subo el pseudoelemento para arriba del boton,lo saco afuera del boton, y lo oculto con overflow:hidden; y luego lo traigo con hover ya que le coloco top:0;*/
+    bottom: 0;
+    right: 0;
+    left: 0;
+    padding: 0;
+    margin: 0;
+
+    transition: .3s ease-in-out all;/*tiempo que dura el efecto*/
+}
+
+.btn-primary.btn-1:hover::after {
+    top: 0;/*bajo el pseudoelemento de arriba (top:-45px) hasta encimarse con el boton (top:0) al pasar el mouse por el boton*/
+}
+
+
+/*span es el texto*/
+.btn-primary span {
+    position: relative;/*si no le coloco relative el pseudoelemento me lo tapa*/
+    z-index: 2;/*coloco el texto arriba del pseudoelemento*/
+
+}
+
+/**************fin de aplicando transicion al boton de sucursales************/
+
+
+/******aplico media queries para los botones de la solapa sucursales*********/
+@media (max-width: 576px) { 
+    .btn-mediaqueries{
+        width: 80%;
+        display: flex;
+        flex-direction:row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+
+    }
+ }
+ /****************************/
+/******lo utilizo para centrar el display:block que me vino en las card de bootstrap****/
+ .bodysucursal>img{
+    width: 400px;
+    margin-left:30%;
+ }
+ .bodysucursal>p{
+    width: 50%;
+    margin-left:30%;
+ }
+ .bodysucursal>a{
+    width: 50%;
+    margin-left:30%;
+ }
